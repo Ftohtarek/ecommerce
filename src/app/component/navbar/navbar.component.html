@@ -1,0 +1,36 @@
+<nav>
+    <mat-toolbar class="mainToolbar">
+        <mat-toolbar class="align-center">
+            <a mat-fab routerLinkActive="active" routerLink="/"
+                color="primary" class="heading" extended >
+                <h1>My App</h1>
+            </a>
+            <a mat-button routerLinkActive="active" routerLink="cart">Shopping Cart </a>
+
+            <button class="row-reverse" mat-button
+            [matMenuTriggerFor]="menu"
+            (menuClosed)="toggle(menu)"
+            (menuOpened)="toggle(menu)">
+                <mat-icon *ngIf="!toggleMenuIcon">keyboard_arrow_right</mat-icon>
+                <mat-icon *ngIf="toggleMenuIcon">keyboard_arrow_down</mat-icon>
+                {{userName}}
+            </button>
+
+            <mat-menu #menu="matMenu" yPosition="below" >
+                <button mat-menu-item routerLinkActive="active" routerLink="orders">My Orders</button>
+                <button mat-menu-item routerLinkActive="active" routerLink="orders/manage">Manage Orders</button>
+                <button mat-menu-item routerLinkActive="active" routerLink="orders/products/manage">Manage Products</button>
+                <button mat-menu-item routerLinkActive="active" routerLink="login">Log Out</button>
+            </mat-menu>
+
+        </mat-toolbar>
+        <mat-toolbar class="row-reverse">
+            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                <mat-icon>share</mat-icon>
+            </button>
+        </mat-toolbar>
+    </mat-toolbar>
+</nav>
