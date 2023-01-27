@@ -1,21 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
+import { AdminProductComponent } from './admin/admin-product/admin-product.component';
 import { CartComponent } from './component/cart/cart.component';
+import { CheckOutComponent } from './component/check-out/check-out.component';
 import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
+import { MyOrderComponent } from './component/my-order/my-order.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
-import { ManageOrdersComponent } from './component/orders/manage-orders/manage-orders.component';
-import { ManageProductComponent } from './component/orders/manage-product/manage-product.component';
-import { MyOrdersComponent } from './component/orders/my-orders/my-orders.component';
+import { OrderSuccussComponent } from './component/order-succuss/order-succuss.component';
+import { ProductComponent } from './component/product/product.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'orders', component: MyOrdersComponent },
+  { path: 'products', component: ProductComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'orders/manage', component: ManageOrdersComponent },
-  { path: 'orders/products/manage', component: ManageProductComponent },
+  { path: 'check-out', component: CheckOutComponent },
+  { path: 'order-success', component: OrderSuccussComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'my/orders', component: MyOrderComponent },
+  { path: 'admin/products', component: AdminProductComponent },
+  { path: 'admin/orders', component: AdminOrdersComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
