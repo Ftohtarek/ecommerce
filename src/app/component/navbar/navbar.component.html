@@ -1,36 +1,42 @@
-<nav>
-    <mat-toolbar class="mainToolbar">
-        <mat-toolbar class="align-center">
-            <a mat-fab routerLinkActive="active" routerLink="/"
-                color="primary" class="heading" extended >
-                <h1>My App</h1>
+<nav color="default">
+    <mat-toolbar class="container">
+        <!-- left hande side -->
+        <div left-side>
+            <!-- home link -->
+            <a mat-button routerLinkActive="activeLink" routerLink="/home">
+                Home
             </a>
-            <a mat-button routerLinkActive="active" routerLink="cart">Shopping Cart </a>
+            <!-- cart link -->
+            <a mat-button routerLinkActive="activeLink" routerLink="cart">Shopping Cart
+                <span total-Quantity *ngIf="cartModel$ | async as cartModel">{{cartModel.totalItemCount}}</span>
+            </a>
 
-            <button class="row-reverse" mat-button
-            [matMenuTriggerFor]="menu"
-            (menuClosed)="toggle(menu)"
-            (menuOpened)="toggle(menu)">
-                <mat-icon *ngIf="!toggleMenuIcon">keyboard_arrow_right</mat-icon>
-                <mat-icon *ngIf="toggleMenuIcon">keyboard_arrow_down</mat-icon>
-                {{userName}}
+        </div>
+
+        <!-- right hande side -->
+        <div right-side>
+            <!-- profile menu -->
+            <button profile mat-button *ngIf="user.ActiveUser as user ;else annomusUser" [matMenuTriggerFor]="menu"
+                (menuClosed)="!toggleMenuIcon" (menuOpened)="!toggleMenuIcon">
+                <img *ngIf="user.photoURL" [src]="user.photoURL">
+                <img *ngIf="!user.photoURL" src="../../../assets/index.png">
+                {{user?.userName}}
             </button>
-
-            <mat-menu #menu="matMenu" yPosition="below" >
-                <button mat-menu-item routerLinkActive="active" routerLink="my/orders">My Orders</button>
-                <button mat-menu-item routerLinkActive="active" routerLink="admin/orders">Manage Orders</button>
-                <button mat-menu-item routerLinkActive="active" routerLink="admin/products">Manage Products</button>
-                <button mat-menu-item routerLinkActive="active" routerLink="login">Log Out</button>
+            <mat-menu #menu="matMenu" yPosition="below">
+                <button mat-menu-item routerLinkActive="activeLink" routerLink="my/orders">My Orders</button>
+                <button *ngIf="user.ActiveUser?.isAdmin" mat-menu-item routerLinkActive="activeLink"
+                    routerLink="admin/orders">Manage Orders</button>
+                <button *ngIf="user.ActiveUser?.isAdmin" mat-menu-item routerLinkActive="activeLink"
+                    routerLink="admin/products">Manage Products</button>
+                <button mat-menu-item routerLinkActive="active" routerLink="login" (click)="auth.logout()">Log
+                    Out</button>
             </mat-menu>
 
-        </mat-toolbar>
-        <mat-toolbar class="row-reverse">
-            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                <mat-icon>favorite</mat-icon>
-            </button>
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-                <mat-icon>share</mat-icon>
-            </button>
-        </mat-toolbar>
+            <ng-template #annomusUser>
+                <button mat-button routerLink="login">logIn</button>
+                <a mat-button routerLinkActive="linkActive" routerLink="signup">Regisiter </a>
+            </ng-template>
+
+        </div>
     </mat-toolbar>
 </nav>

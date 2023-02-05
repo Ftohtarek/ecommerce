@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import {
+  AngularFireDatabase,
+} from '@angular/fire/compat/database';
+import { CartModel } from 'src/app/models/cart.model';
+import { AuthService } from 'src/app/service/auth.service';
+import { CartService } from 'src/app/service/cart.service';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'e-navbar',
@@ -7,17 +14,12 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   toggleMenuIcon: boolean = false
-  userName:string='Ftoh'
-  log(e: any) {
-    console.log(e)
+
+  cartModel$ = this.cart.getCartObject
+
+  constructor(public auth: AuthService, public user: UsersService, private cart: CartService) {
+
   }
-  toggle(menu:any) {
-    this.toggleMenuIcon = !this.toggleMenuIcon
-  }
-  // selectedChip = (chip: any) => {
-  //   this.chipsCategorys.
-  //     filter(c => c != chip).
-  //     forEach(c => c.isSelected = false)
-  //   chip.isSelected = !chip.isSelected
-  // }
+
+
 }

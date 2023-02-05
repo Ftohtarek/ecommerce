@@ -1,1 +1,105 @@
-<p>login works!</p>
+<section>
+    <!-- provider facebook and google and heading -->
+    <div class='provieder-content'>
+        <div heading>
+            Login To Ecommerce.
+        </div>
+        <div btn-container>
+            <button facebook mat-fab extended color="primary" (click)="signin.signinWithFacebook()">login
+                with Facebook
+                <mat-icon matPrefix>facebook</mat-icon></button>
+        </div>
+        <div btn-container>
+            <button google mat-fab extended color="outline" (click)="signin.signinWithGoogle()">
+                login with Google
+                <mat-icon>mail_outline</mat-icon></button>
+        </div>
+    </div>
+
+    <div provider-Auth-Error>
+        <mat-error *ngIf="signin.Error.providerNoEmail">Email not Exist Register First</mat-error>
+        <mat-error *ngIf="signin.Error.providerFaild">oop's something going wrong please check stablishe
+            of internet or check the browser proxy </mat-error>
+    </div>
+
+    <!-- break line between provider and native -->
+    <div class="divider" content="or">
+    </div>
+    <!--Authentaction Error  -->
+    <div Native-Auth-Error>
+        <mat-error *ngIf="signin.Error.nativeEmailnoEmail">
+            Wrong Email .
+        </mat-error>
+        <mat-error *ngIf="signin.Error.wrongPassword">
+            Wrong password
+        </mat-error>
+        <mat-error *ngIf="signin.Error.nativeEmailFaild">oop's something going wrong please check
+            stablishe of
+            internet or check the browser proxy </mat-error>
+    </div>
+
+    <form [formGroup]="signinFormGroup" (submit)="login()">
+        <!-- email form control -->
+        <mat-form-field appearance="outline">
+            <mat-label>what's your email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+            <mat-error
+                *ngIf="signinFormGroup.get('email')?.hasError('email') && !signinFormGroup.get('email')?.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="signinFormGroup.get('email')?.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="signinFormGroup.get('email')?.hasError('isExsit')">
+                Email is already <strong>Exist</strong> .
+            </mat-error>
+        </mat-form-field>
+
+        <!-- password -->
+        <mat-form-field appearance="outline">
+            <mat-label>Enter password</mat-label>
+            <input [type]="isVisible?'text':'password'" matInput formControlName="password"
+                placeholder="Creat password">
+            <mat-icon matSuffix (click)="isVisible=!isVisible">visibility</mat-icon>
+
+            <mat-error
+                *ngIf="signinFormGroup.get('password')?.hasError('pattern') && !signinFormGroup.get('password')?.hasError('required')">
+                Password Invalid
+            </mat-error>
+
+            <mat-error *ngIf="signinFormGroup.get('password')?.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+
+        </mat-form-field>
+        <!-- sign up terms and button -->
+        <div class="signin-button-field">
+            <button type="submit" mat-fab extended color="primary">Login</button>
+            <p><a routerLink="/signup">sign up </a> now .</p>
+        </div>
+
+    </form>
+
+</section>
+
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '{your-app-id}',
+            cookie: true,
+            xfbml: true,
+            version: '{api-version}'
+        });
+
+        FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>

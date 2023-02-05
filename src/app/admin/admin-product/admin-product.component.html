@@ -1,0 +1,48 @@
+
+<a addBtn mat-raised-button color="primary" routerLink="/admin/products/add"> Add new Products </a>
+
+<mat-form-field searchField appearance="outline">
+    <mat-label>Search</mat-label>
+    <input #searchInput name="searchInput" type="search" matInput (keyup)="applyFilter(searchInput.value)">
+    <mat-icon matIconSuffix>search</mat-icon>
+</mat-form-field>
+
+
+<div class="spinner-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</div>
+<table mat-table [dataSource]="dataSource " class="mat-elevation-z2">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <div class="duration-cell">
+
+            <td mat-cell *matCellDef="let product"> {{product.title}} </td>
+        </div>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let product"> {{product.price}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Options </th>
+        <td mat-cell *matCellDef="let product"> <a routerLink="/admin/products/add/"
+                [queryParams]="{id:product.key}">Update</a></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+<!-- (page)="" -->
+<!-- <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="dataSource.length" 
+    [pageSizeOptions]="[5, 10, 25]" [pageIndex]="0" aria-label="Select page">
+</mat-paginator> -->
+<mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>

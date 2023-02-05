@@ -1,0 +1,69 @@
+<section>
+    <mat-grid-list [cols]="cols" gutterSize="10px" rowHeight="10vh">
+        <!-- form -->
+        <mat-grid-tile [colspan]="formLayout.col" [rowspan]="formLayout.row">
+            <div>
+                <form [formGroup]="productForm" (submit)="productId? update(): add()">
+                    <!-- product Title -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Title</mat-label>
+                        <input type="text" matInput formControlName="title" placeholder="ex:Mobile oppo reno 2f.">
+                        <mat-error *ngIf="productForm.get('title')?.hasError('required')">Title is
+                            <strong>required</strong></mat-error>
+                        <mat-error
+                            *ngIf="productForm.get('title')?.hasError('minlength') && !productForm.get('title')?.hasError('required')">
+                            Title is very <strong>short</strong></mat-error>
+                    </mat-form-field>
+
+                    <!-- Product Price -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Price</mat-label>
+                        <input type="number" matInput formControlName="price" placeholder="$ 200.99">
+                        <mat-icon matIconSuffix color="default">attach_money</mat-icon>
+
+                        <mat-error *ngIf="productForm.get('price')?.hasError('required')">Price is
+                            <strong>required</strong></mat-error>
+                        <mat-error
+                            *ngIf="productForm.get('price')?.hasError('min') && !productForm.get('price')?.hasError('required')">
+                            Price must be > 0 or = 0</mat-error>
+                    </mat-form-field>
+                    <!-- product Category -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Category</mat-label>
+                        <mat-select formControlName="category">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let category of categories$ | async" [value]="category.key">
+                                {{category.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>Please choose category</mat-error>
+                    </mat-form-field>
+                    <!-- Image url -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Image Url</mat-label>
+                        <input matInput formControlName="imageUrl" placeholder="https://images.io/mobile/reno.com">
+                        <mat-error *ngIf="productForm.get('imageUrl')?.hasError('required')">
+                            Image url is <strong>required</strong></mat-error>
+                        <mat-error *ngIf="productForm.get('imageUrl')?.hasError('url') &&
+                    !productForm.get('imageUrl')?.hasError('required')">
+                            Invaild url</mat-error>
+                    </mat-form-field>
+
+                    <!-- Add button -->
+                    <div class="button-field">
+                        <button type="submit" mat-fab extended color="primary">Save</button>
+                        <button *ngIf="productId" type="button" mat-fab extended color="warn"
+                            (click)="delete()">Delete</button>
+                    </div>
+
+                </form>
+            </div>
+        </mat-grid-tile>
+        <!-- card -->
+        <mat-grid-tile rowspan="1" [colspan]="cardLayout.col" [rowspan]="cardLayout.row">
+            <div>
+                <card [product]="getProduct" [showAction]="false"></card>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</section>

@@ -1,4 +1,97 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+$lightColor: rgba(0, 0, 0, .2);
+
+@mixin centerContent {
+    min-width: 150px;
+    max-width: 500px;
+    margin: auto;
+}
+
+@mixin divider-props($width) {
+    position: absolute;
+    width: $width;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+@mixin d-flex($direct) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direct;
+}
+
+.divider {
+    text-align: center;
+    position: relative;
+    padding: 20px;
+    width: 80%;
+    margin: auto;
+
+    &[content]::after {
+        content: attr(content);
+        @include divider-props(20%);
+        background-color: white;
+        transform: translateY(-50%);
+    }
+
+    &::before {
+        @include divider-props(100%);
+        content: '';
+        background-color: $lightColor;
+        height: 2px;
+    }
+}
+
+.activeLink {
+    background-color: #dfdfdf !important;
+}
+
+.container {
+    margin: auto;
+    width: 90%;
+}
+
+@media screen and (max-width:1000px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .container {
+        width: 92%;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .container {
+        width: 94%;
+    }
+}
+
+@media screen and (max-width:700px) {
+    .container {
+        width: 96%;
+    }
+}
+
+
+@media screen and (max-width:599px) {
+    .container {
+        width: 99%;
+    }
+}

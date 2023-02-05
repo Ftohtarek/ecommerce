@@ -1,0 +1,26 @@
+<!-- place holder -->
+
+<mat-card>
+    <div cardImage>
+        <img [src]="product.imageUrl" (load)="isLoaded.emit(true)" loading="lazy">
+        <!-- <img [src]="" (load)="isLoaded.emit(true)" loading="lazy"> -->
+    </div>
+    <mat-card-content>
+        <mat-card-title>{{product.title}}</mat-card-title>
+        <mat-card-subtitle>{{product.price |currency}}</mat-card-subtitle>
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="showAction">
+
+        <button *ngIf="!cartModel.getQuantity(product)" addToCartBtn mat-raised-button color="primary"
+            (click)="addToCart()">
+            add to cart
+        </button>
+
+        <product-quantity *ngIf="cartModel.getQuantity(product)" [quantity]="cartModel.getQuantity(product)"
+            [product]="product"></product-quantity>
+
+
+
+    </mat-card-actions>
+</mat-card>

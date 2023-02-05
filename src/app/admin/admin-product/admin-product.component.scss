@@ -1,0 +1,18 @@
+mat-form-field[searchField] {
+    width: 100%;
+}
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom:5px ;
+}
+a[addBtn]{
+    margin: 5px auto;
+    padding: 25px;
+    float: right;
+
+}
+
+mat-paginator{
+    margin-top: 5px;
+}

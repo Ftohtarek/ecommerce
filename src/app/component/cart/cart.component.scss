@@ -1,0 +1,23 @@
+div[quantity] {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &* {
+        height: inherit;
+    }
+
+}
+th[bd-l],td[bd-l]{
+    border-left:1px solid rgba(0, 0, 0, 0.027);
+}
+mat-form-field[searchField] {
+    width: 100%;
+}
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom:5px ;
+}
