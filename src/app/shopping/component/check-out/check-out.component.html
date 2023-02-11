@@ -1,0 +1,72 @@
+<section>
+    <mat-grid-list cols="2" gutterSize="10px" rowHeight="6.6vh">
+        <mat-grid-tile rowspan="1">
+            <div class="fit-content">
+                <h2 shippingHeading>shipping</h2>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile rowspan="1"> </mat-grid-tile>
+        <!-- form -->
+        <mat-grid-tile rowspan="9">
+            <div class="fit-content">
+                <form [formGroup]="shippingForm">
+                    <!-- name -->
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Name</mat-label>
+                        <input type="text" matInput formControlName="name">
+                        <mat-error> name is Required</mat-error>
+                    </mat-form-field>
+
+                    <!-- address -->
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Address </mat-label>
+                        <input type="text" matInput placeholder="omda-street/house-211" formControlName="address">
+                        <mat-error>address required</mat-error>
+                    </mat-form-field>
+
+                    <!-- country -->
+                    <auto-complete-field [formControl]="shippingForm.controls.country" [label]="'country'"
+                        [placeholder]="'Egypt'" [optionsList]="countries.countriesName" class="w-100">
+                    </auto-complete-field>
+
+                    <!-- city -->
+                    <auto-complete-field [label]="'city'" [placeholder]="'Minya El Kamh'"
+                        [formControl]="shippingForm.controls.city" [optionsList]="
+                    shippingForm.get('country')?.value == '' ? [] :
+                    countries.citiesOfCountry(shippingForm.get('country')?.value)" class="w-100">
+                    </auto-complete-field>
+
+                    <!-- submition button -->
+                    <div class="w-100">
+                        <button type="submit" mat-stroked-button color="primary"
+                            (click)="shippingForm.valid? succuss(): null"> Submit </button>
+                    </div>
+
+                </form>
+            </div>
+        </mat-grid-tile>
+
+        <!-- card column -->
+        <mat-grid-tile rowspan="7">
+            <div class="fit-content">
+                <mat-card >
+                    <mat-card-header>
+                        <h2>order Summary</h2>
+                        <p>You have<strong> {{cart.items.length}} </strong>items in your shopping cart </p>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div *ngFor="let item of cart.items" class="card-row">
+                            <span>{{item.quantity}} x {{item.product.title}}</span>
+                            <span>{{item.countItemPrice | currency}}</span>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <strong> Total Price : {{ cart.totalCartPrice | currency}}</strong>
+                    </mat-card-actions>
+
+                </mat-card>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+</section>

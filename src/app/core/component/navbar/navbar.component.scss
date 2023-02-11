@@ -1,0 +1,37 @@
+@import' ../../../../../../styles.scss';
+
+nav {
+    background-color: #f5f5f5;
+
+    mat-toolbar {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button[profile] {
+
+        img {
+            margin-right: 10px;
+            position: absolute;
+            left: -45px;
+            top: -4px;
+            background-size: cover;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+    }
+
+    div[left-side] {
+        a {
+            margin-left: 5px;
+        }
+        span[total-Quantity] {
+            font-size: 12px;
+            padding: 2px 5px;
+            background-color: rgb(250, 217, 72);
+            border-radius: 6px;
+        }
+    }
+}

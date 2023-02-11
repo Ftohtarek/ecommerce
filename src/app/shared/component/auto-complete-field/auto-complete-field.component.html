@@ -1,0 +1,11 @@
+<mat-form-field appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <input type="text" [placeholder]="placeholder" aria-label="Text" matInput [matAutocomplete]="auto"
+        [formControl]="formControl">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error>{{label}} required</mat-error>
+</mat-form-field>

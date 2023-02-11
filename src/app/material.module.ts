@@ -22,11 +22,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatSidenavModule} from '@angular/material/sidenav'; 
-import {MatListModule} from '@angular/material/list'; 
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   exports: [
+    MatAutocompleteModule,
+    MatSnackBarModule,
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
@@ -53,7 +57,7 @@ import {MatListModule} from '@angular/material/list';
     MatGridListModule,
     MatSidenavModule,
     MatListModule,
-    
+
   ]
 })
 export class MatMaterialModule { }

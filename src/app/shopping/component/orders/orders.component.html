@@ -1,0 +1,5 @@
+<h1><strong>{{user.ActiveUser.userName}}</strong> Orders</h1>
+<p>
+    you have <strong *ngIf="orderList$ | async as orders">{{orders.length}}</strong> Order.
+</p>
+<order-table [orderList]="orderList$"></order-table>

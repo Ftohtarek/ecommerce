@@ -1,0 +1,44 @@
+.image-thumbail {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-size: cover;
+}
+
+.title-image {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+@media screen and (max-width:500px) {
+    .mdc-data-table__header-cell {
+        padding: 1px;
+        text-align: center;
+        border-left: 1px solid rgba(0, 0, 0, .1);
+        font-size: 14px;
+    }
+
+    .mdc-data-table__cell {
+        padding: 1px;
+        text-align: center;
+        border-left: 1px solid rgba(0, 0, 0, .1);
+        font-size: 14px;
+    }
+}

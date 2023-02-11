@@ -1,0 +1,131 @@
+<section id="signup">
+    <!-- provider facebook and google and heading -->
+    <div class='provieder-content'>
+        <div heading>
+            Sign up for free to start Shopping.
+        </div>
+        <div btn-container>
+            <button facebook mat-fab extended color="primary" (click)="register.registerWithFacebook()">sign up
+                with Facebook
+                <mat-icon matPrefix>facebook</mat-icon></button>
+        </div>
+        <div btn-container>
+            <button google mat-fab extended color="outline" (click)="register.registerWithGoogle()">
+                sign up with Google
+                <mat-icon>mail_outline</mat-icon></button>
+        </div>
+    </div>
+
+    <div provider-Auth-Error>
+        <mat-error *ngIf="register.Error.emailExistFromProvider">this Email already exist use other one</mat-error>
+        <mat-error *ngIf="register.Error.registerFaildFromProvider">oop's something going wrong please check stablishe
+            of internet or check the browser proxy </mat-error>
+    </div>
+
+    <!-- break line between provider and native -->
+    <div class="divider" content="or">
+    </div>
+
+    <!--Authentaction Error  -->
+    <div Native-Auth-Error>
+        <mat-error *ngIf="register.Error.emailExistFromNativeEmail">
+            Email is already <strong>Exist</strong> .
+        </mat-error>
+        <mat-error *ngIf="register.Error.registerFaildFromNativeEmail">oop's something going wrong please check
+            stablishe of
+            internet or check the browser proxy </mat-error>
+    </div>
+
+    <!--Rective Form for Native Authentication   -->
+    <form [formGroup]="signupFormGroup" (submit)="signup()">
+        <!-- email form control -->
+        <mat-form-field appearance="outline">
+            <mat-label>what's your email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+            <mat-error
+                *ngIf="signupFormGroup.get('email')?.hasError('email') && !signupFormGroup.get('email')?.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="signupFormGroup.get('email')?.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="signupFormGroup.get('email')?.hasError('isExsit')">
+                Email is already <strong>Exist</strong> .
+            </mat-error>
+        </mat-form-field>
+
+        <!-- password -->
+        <mat-form-field appearance="outline">
+            <mat-label>Creat password</mat-label>
+            <input [type]="isVisible?'text':'password'" matInput formControlName="password"
+                placeholder="Creat password">
+            <mat-icon matSuffix (click)="isVisible=!isVisible">visibility</mat-icon>
+            <mat-error
+                *ngIf="signupFormGroup.get('password')?.hasError('pattern') && !signupFormGroup.get('password')?.hasError('required')">
+                password at least 1 char and minuim length 8
+            </mat-error>
+            <mat-error *ngIf="signupFormGroup.get('password')?.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <!-- user name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input type="text" matInput formControlName="name" placeholder="What Should call you">
+            <mat-error
+                *ngIf="signupFormGroup.get('name')?.hasError('pattern') && !signupFormGroup.get('name')?.hasError('required')">
+                Invalid Name
+            </mat-error>
+            <mat-error *ngIf="signupFormGroup.get('name')?.hasError('required')">
+                Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <!-- gender -->
+        <div gender>
+            <div label> What's your gender? </div>
+            <mat-radio-group formControlName="gender">
+                <mat-radio-button value="0">Male</mat-radio-button>
+                <mat-radio-button value="1">Female</mat-radio-button>
+            </mat-radio-group>
+            <ng-container *ngIf="signupFormGroup.get('gender')?.touched">
+                <mat-error *ngIf="signupFormGroup.get('gender')?.hasError('pattern')">
+                    Invalid choise
+                </mat-error>
+                <mat-error *ngIf="signupFormGroup.get('gender')?.hasError('required')">
+                    gender is required
+                </mat-error>
+            </ng-container>
+        </div>
+
+        <!-- sign up terms and button -->
+        <div class="signup-button-field">
+            <p terms>By clicking on sign-up, you agree to Ecommerce's <a href=""> Terms and Conditions</a> of Use.</p>
+            <button type="submit" mat-fab extended color="primary">Sign Up</button>
+            <p>Have an account? <a routerLink="login">Log in </a> .</p>
+        </div>
+
+    </form>
+
+</section>
+
+<!-- Sdk for Aunthentication by -->
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '703374248183113',
+            xfbml: true,
+            version: 'v15.0'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>

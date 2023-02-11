@@ -1,0 +1,44 @@
+@import '../../../../styles.scss';
+
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    button {
+        min-width: 25vw;
+    }
+}
+
+mat-card {
+    margin: 1px;
+    height: 85%;
+
+    mat-card-header {
+        display: block !important;
+        padding-left: 12px;
+    }
+
+    mat-card-content {
+        overflow: scroll;
+        overflow-x: hidden;
+        margin: auto 15px;
+        padding: 15px 6px;
+
+        .card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: .5px solid rgba($color: #000000, $alpha: .1);
+            border-bottom: .5px solid rgba($color: #000000, $alpha: .1);
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+
+    mat-card-actions {
+        padding-left: 16px;
+    }
+}

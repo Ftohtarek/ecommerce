@@ -1,8 +1,10 @@
-import { ErrorHandler } from "@angular/core";
+import { ErrorHandler, Injectable } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AppError } from "./app.error";
 
+@Injectable()
 export class AppErrorHandler implements ErrorHandler {
-    handleError(error: any): void {
-
-    }
+    constructor() { }
+    handleError(error: AppError): void {}
 
 }

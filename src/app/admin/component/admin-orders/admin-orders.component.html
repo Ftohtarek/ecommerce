@@ -1,0 +1,6 @@
+<h1>Manage Orders</h1>
+<p>
+    <strong *ngIf="orderList$ | async as orders">{{orders.length}}</strong> Order.
+</p>
+
+<order-table [orderList]="orderList$" [cansalOrder]="true" (OnDeleted)="deleteOrder($event)"></order-table>
