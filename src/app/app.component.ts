@@ -23,5 +23,5 @@ export class AppComponent {
 
 
   }
-  title = 'ecommerce';
+  title = 'Ecommerce';
 }
