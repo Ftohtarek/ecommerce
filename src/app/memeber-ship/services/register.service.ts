@@ -1,64 +1,55 @@
 import { Injectable } from '@angular/core';
-import { AuthProvider, User } from 'firebase/auth';
-import { Subscription } from 'rxjs';
+
+import { AuthError, AuthErrorCodes, AuthProvider, updateProfile, User } from 'firebase/auth';
+import { ActiveUser } from 'shared/models/active-user';
 import { AuthService } from 'shared/service/auth.service';
 import { UsersService } from 'shared/service/users.service';
-import { RegisterErrors } from '../models/register-errors';
-import { Registeration } from '../models/registeration';
+
+import { AuthErrors } from '../models/AuthErrors';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService implements Registeration {
-  Error: RegisterErrors = <RegisterErrors>{}
-  subscribe: Subscription = <Subscription>{}
+export class RegisterService {
+  public Error?: AuthErrors;
+  private defalutImgUrl = 'https://firebasestorage.googleapis.com/v0/b/angular15-ecommerce-app.appspot.com/o/index.png?alt=media&token=eeaac4ea-1170-44aa-be25-478202466ef0'
+
+
   constructor(private authService: AuthService, private db: UsersService) { }
 
-  registerWithFacebook = () => { this.registerWithPopup(this.authService.facebookProvider) }
+  public registerWithFacebook = () => { this.registerWithPopup(this.authService.facebookProvider) }
 
-  registerWithGoogle = () => { this.registerWithPopup(this.authService.googleProvider) }
+  public registerWithGoogle = () => { this.registerWithPopup(this.authService.googleProvider) }
 
-  /**
-   * @param {AuthProvider} provider detect which provider will use. they already store in auth service
-   * @implements {authService.provider()}  that have three Arguments
-   * @example authService.provider(authService.facebookprovider ,
-   * (user:User)=>console.log(user),
-   * (error:Error)=>console.log(error)
-   * )
-   */
+  public registerWithNativeEmail(form: any) {
+    this.authService.signUpWithEmail(form.email, form.password)
+      .then(user => this.succussRegister(<User>user.user, form))
+      .catch(error => this.Error = new AuthErrors(<AuthError>error))
+  }
 
   private registerWithPopup(provider: AuthProvider) {
     this.authService.AuthWithPopup(provider,
       user => this.popupSuccess(user),
-      error => this.Error = { registerFaildFromProvider: true }
-    )
-
-  }
-
-  popupSuccess(user: User) {
-    this.subscribe = this.db.checkEmailExist(user.uid).subscribe(isExist => {
-      if (isExist) {
-        this.authService.logout()
-        return this.Error = { emailExistFromProvider: true };
-      }
-
-      this.db.addUser(user.uid, <string>user.email, <string>user.displayName, user.uid, <string>user.photoURL)
-      this.authService.navigation()
-      return this.subscribe.unsubscribe()
-    })
-  }
-
-  registerWithNativeEmail(form: any) {
-    this.authService.AuthWithEmail(this.authService.signup(form.email, form.password),
-      user => this.db.addUser(user.uid, <string>user.email, <string>form.name, user.uid),
-      error => this.causeBecause(error)
+      error => this.Error = new AuthErrors(<AuthError>error)
     )
   }
 
-  private causeBecause = (error: Error) => {
-    this.Error = error.message?.includes('(auth/email-already-in-use)') ?
-      { emailExistFromNativeEmail: true } : { registerFaildFromNativeEmail: true }
+  private popupSuccess(user: User) {
+    this.db.checkEmailExist(user.uid,
+      () => this.succussRegister(user),
+      () => { this.authService.logout(); this.Error = new AuthErrors(AuthErrorCodes.EMAIL_EXISTS) }
+    )
+  }
+
+  /* Add user to database users and set default image then navigation  */
+  private async succussRegister(user: User, form?: any) {
+    let activeUser: ActiveUser;
+    user.photoURL ? user.photoURL : await updateProfile(user, { photoURL: this.defalutImgUrl })
+
+    activeUser = { uid: user.uid, email: <string>user.email, userName: user.displayName || form.name, photoURL: <string>user.photoURL }
+    this.db.addUser(activeUser)
+    this.authService.navigation()
   }
 
 }

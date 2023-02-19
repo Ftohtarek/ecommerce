@@ -39,6 +39,7 @@ export class CheckOutComponent implements OnDestroy, OnInit {
   succuss() {
     this._snackBar.open('order in process thanks for time ', 'done', { duration: 5 * 1000 });
     this.orders.setOrder(this.orderValue)
+    this.cartService.removeCartItems()
     this.router.navigate(['orders'])
   }
 

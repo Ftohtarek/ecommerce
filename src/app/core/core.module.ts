@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { SharedModule } from 'shared/shared.module';
+
+import { HomeComponent } from './component/home/home.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
-import { ProductComponent } from './component/product/product.component';
-import { HomeComponent } from './component/home/home.component';
-import { SharedModule } from 'shared/shared.module';
 
 
 
@@ -13,7 +13,7 @@ import { SharedModule } from 'shared/shared.module';
     NavbarComponent,
     HomeComponent,
     NotFoundComponent,
-    ProductComponent,
+
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SigninService } from 'app/memeber-ship/services/signin.service';
 @Component({
   selector: 'app-login',
@@ -8,7 +8,7 @@ import { SigninService } from 'app/memeber-ship/services/signin.service';
 })
 export class LoginComponent {
   isVisible: boolean = false;
-  
+
   signinFormGroup = new FormGroup({
     'email': new FormControl('', [Validators.required, Validators.email]),
     'password': new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/)]),

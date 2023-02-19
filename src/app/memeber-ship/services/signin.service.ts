@@ -1,61 +1,41 @@
 import { Injectable } from '@angular/core';
-import { AuthProvider } from 'firebase/auth';
+import { AuthError, AuthErrorCodes, AuthProvider, User } from 'firebase/auth';
 import { AuthService } from 'shared/service/auth.service';
 import { UsersService } from 'shared/service/users.service';
-import { Signin } from '../models/signin';
-import { Signinerror } from '../models/signinerror';
+import { AuthErrors } from '../models/AuthErrors';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class SigninService implements Signin {
+export class SigninService {
 
-  Error: Signinerror = <Signinerror>{}
-
+  Error?: AuthErrors
 
   constructor(private authService: AuthService, private db: UsersService) { }
 
-  signinWithFacebook = () => { this.signinWith(this.authService.facebookProvider) }
+  signinWithFacebook = () => { this.signinWithPopup(this.authService.facebookProvider) }
 
-  signinWithGoogle = () => { this.signinWith(this.authService.googleProvider) }
+  signinWithGoogle = () => { this.signinWithPopup(this.authService.googleProvider) }
 
-  /**
-   * @param {AuthProvider} provider detect which provider will use. they already store in auth service
-   * @implements {authService.provider()}  that have three Arguments
-   * @example authService.provider(authService.facebookprovider ,
-   * (user:User)=>console.log(user),
-   * (error:Error)=>console.log(error)
-   * )
-   */
-
-  private signinWith(provider: AuthProvider) {
+  private signinWithPopup(provider: AuthProvider) {
     this.authService.AuthWithPopup(provider,
-      user => this.db.checkEmailExist(user.uid).subscribe(
-        isExist => {
-          if (isExist)
-            this.authService.navigation();
-          else {
-            this.authService.logout()
-            this.Error = { providerNoEmail: true };
-          }
-        }),
-      error => this.Error = { providerFaild: true }
+      user => this.popupSuccess(user),
+      error => new AuthErrors(<AuthError>error)
+    )
+  }
+
+  private popupSuccess(user: User) {
+    this.db.checkEmailExist(user.uid,
+      () => { this.authService.logout(); this.Error = new AuthErrors(AuthErrorCodes.USER_DELETED) },
+      () => this.authService.navigation()
     )
   }
 
   signinWithEmail(form: any) {
-    this.authService.AuthWithEmail(this.authService.signin(form.email, form.password),
-      user => this.authService.navigation(),
-      error => this.causeBecause(error)
-    )
-  }
-
-  private causeBecause(error: Error) {
-
-    if (error.message.includes('auth/wrong-password')) { this.Error = { wrongPassword: true } }
-    else if (error.message.includes('auth/user-not-found')) { this.Error = { nativeEmailnoEmail: true } }
-    else { this.Error = { nativeEmailFaild: true } }
+    this.authService.signInWithEmail(form.email, form.password)
+      .then(() => this.authService.navigation())
+      .catch(error => this.Error = new AuthErrors(error))
   }
 
 }

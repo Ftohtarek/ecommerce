@@ -6,8 +6,6 @@ import { AdminProductComponent } from 'admin/component/admin-product/admin-produ
 import { AdminOrdersComponent } from './admin/component/admin-orders/admin-orders.component';
 import { HomeComponent } from './core/component/home/home.component';
 import { NotFoundComponent } from './core/component/not-found/not-found.component';
-import { OrderSuccussComponent } from './core/component/order-succuss/order-succuss.component';
-import { ProductComponent } from './core/component/product/product.component';
 import { LoginComponent } from './memeber-ship/component/login/login.component';
 import { SignupComponent } from './memeber-ship/component/signup/signup.component';
 import { AdminAuthGuard } from './shared/service/admin-auth-guard.service';
@@ -20,13 +18,11 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'products', component: ProductComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
 
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGaurd] },
   { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGaurd] },
-  { path: 'order-success', component: OrderSuccussComponent, canActivate: [AuthGaurd] },
 
   { path: 'admin/products/add', component: AdminProductFormComponent, canActivate: [AuthGaurd, AdminAuthGuard] },
   { path: 'admin/products', component: AdminProductComponent, canActivate: [AuthGaurd, AdminAuthGuard] },

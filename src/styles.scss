@@ -100,6 +100,18 @@ $lightColor: rgba(0, 0, 0, .2);
     width: 100%;
 }
 
+.Auth-Errors {
+    background-color: rgb(245, 210, 210);
+    width: 100%;
+    padding: 10px 2px;
+    border-radius: 4px;
+    text-align: center;
+    .mat-mdc-form-field-error{
+        color: rgba(0, 0, 0, 0.637) ;
+
+    }
+}
+
 
 
 

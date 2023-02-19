@@ -24,6 +24,8 @@ import { OrdersComponent } from './component/orders/orders.component';
     MatMaterialModule,
     RouterModule,
     ReactiveFormsModule,
-  ]
+  ],
+
+  providers: []
 })
 export class ShoppingModule { }

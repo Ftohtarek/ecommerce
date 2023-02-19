@@ -52,7 +52,9 @@ div[gender] {
 .signup-button-field {
     margin-top: 25px;
     text-align: center;
-
+    button{
+        width: 100px;
+    }
     * {
         margin: 5px auto !important;
     }
@@ -62,6 +64,3 @@ div[gender] {
     }
 }
 
-div[Native-Auth-Error],div[provider-Auth-Error] {
-    text-align: center;
-}

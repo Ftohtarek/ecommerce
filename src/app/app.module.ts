@@ -1,10 +1,14 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { BrowserModule } from '@angular/platform-browser';
 import { AdminModule } from 'admin/admin.module';
+import { Countries } from 'shared/models/countries';
 import { AdminAuthGuard } from 'shared/service/admin-auth-guard.service';
+import { AuthGaurd } from 'shared/service/auth-gaurd.service';
+import { AuthService } from 'shared/service/auth.service';
+import { CartService } from 'shared/service/cart.service';
+import { ProductService } from 'shared/service/product.service';
+import { UsersService } from 'shared/service/users.service';
 import { SharedModule } from 'shared/shared.module';
 
 import { AppComponent } from './app.component';
@@ -26,14 +30,17 @@ import { ShoppingModule } from './shopping/shopping.module';
     BrowserModule,
     MemeberShipModule,
     SharedModule,
-
     // 
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
   ],
   providers: [
     AdminAuthGuard,
+    AuthGaurd,
+    AuthService,
+    UsersService,
+    ProductService,
+    CartService,
+    Countries,
     { provide: ErrorHandler, useClass: AppErrorHandler },
 
   ],

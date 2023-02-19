@@ -39,13 +39,12 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       productService.getCategories.subscribe(categories => this.categories = categories)
 
     const productsAndRoutingAndFilterSubscription =
-      this.productService.getAllProducts.pipe(
-        switchMap(
-          product => {
-            this.products = product
-            return this.router.queryParamMap
-          })).
-        subscribe(
+      this.productService.getAllProducts.pipe(switchMap(
+        product => {
+          this.products = product
+          return this.router.queryParamMap
+        }))
+        .subscribe(
           param => {
             this.category = <string>param.get('category')
             this.filteredProducts = this.category ? this.products.filter(product => product.category == this.category) : this.products
@@ -56,7 +55,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
     this.subscription?.push(...[CartSubscription, productsAndRoutingAndFilterSubscription, CategoriesSubscription])
   }
-  Test(){
+  Test() {
 
   }
 

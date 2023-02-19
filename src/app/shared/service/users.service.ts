@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { map, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ActiveUser } from 'shared/models/active-user';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +11,24 @@ import { ActiveUser } from 'shared/models/active-user';
 export class UsersService {
   ActiveUser!: ActiveUser
   ActiveUser$: Observable<any> = of()
-  constructor(private database: AngularFireDatabase) { }
+  constructor(private database: AngularFireDatabase, private authService: AuthService) { }
 
 
   getUser(uid: string) {
     return this.database.object('users/' + uid).valueChanges()
   }
 
-  addUser(id: any, email: string, userName: string, uid: string, photoURL?: string) {
-    this.database.object('users/' + id).update({ email: email, userName: userName, photoURL: photoURL, uid: uid })
+  addUser(user: ActiveUser) {
+    this.database.object('users/' + user.uid).update(user)
   }
 
-  checkEmailExist(id: string) {
-    
-    return this.getUser(id).pipe(map(user => user ? true : false))
+  async checkEmailExist(id: string, notExsit = () => { }, Exsit = () => { }) {
+    let Email = (await this.database.object('users/' + id).query.get()).val()
+    if (!Email)
+      return notExsit()
+
+    Exsit()
   }
-  
+
 }
+

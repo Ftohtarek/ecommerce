@@ -13,6 +13,7 @@ Integrate with Firebase Authentication and realtime databse.
 - ng2-validation
 - rxjs
 - redux
+- country-state-city
 ## overview 
 >
 Ecommerce application integration with database **firebase-realtime-databae** **noSql**.
@@ -44,3 +45,4 @@ email:```ftohtarek@gmail.com```
 password:```ftoh12345```.
 
 [Ecommerce](https://angular15-ecommerce-app.web.app/)
+

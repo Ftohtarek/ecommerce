@@ -16,26 +16,16 @@
         </div>
     </div>
 
-    <div provider-Auth-Error>
-        <mat-error *ngIf="signin.Error.providerNoEmail">Email not Exist Register First</mat-error>
-        <mat-error *ngIf="signin.Error.providerFaild">oop's something going wrong please check stablishe
-            of internet or check the browser proxy </mat-error>
-    </div>
-
-    <!-- break line between provider and native -->
     <div class="divider" content="or">
     </div>
-    <!--Authentaction Error  -->
-    <div Native-Auth-Error>
-        <mat-error *ngIf="signin.Error.nativeEmailnoEmail">
-            Wrong Email .
-        </mat-error>
-        <mat-error *ngIf="signin.Error.wrongPassword">
-            Wrong password
-        </mat-error>
-        <mat-error *ngIf="signin.Error.nativeEmailFaild">oop's something going wrong please check
-            stablishe of
-            internet or check the browser proxy </mat-error>
+
+    <div class="Auth-Errors" *ngIf="signin.Error">
+        <mat-error *ngIf="signin.Error.userNotExist">Wrong Email signup First .</mat-error>
+        <mat-error *ngIf="signin.Error.invalidEmail">This Email Invalid email </mat-error>
+        <mat-error *ngIf="signin.Error.wrongPassword">Wrong Password.</mat-error>
+        <mat-error *ngIf="signin.Error.PopupClosed">Browse Close popup login page or block it.</mat-error>
+        <mat-error *ngIf="signin.Error.internalError">oop's something going wrong please check stablishe
+            of internet or check the browser proxy.</mat-error>
     </div>
 
     <form [formGroup]="signinFormGroup" (submit)="login()">
@@ -81,7 +71,7 @@
     </form>
 
 </section>
-
+<!-- belong to facebook developer auth service -->
 <script>
     window.fbAsyncInit = function () {
         FB.init({
