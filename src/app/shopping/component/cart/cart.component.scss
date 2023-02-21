@@ -1,3 +1,5 @@
+@import '../../../../styles.scss';
+
 .image-thumbail {
     width: 40px;
     height: 40px;
@@ -11,13 +13,6 @@
     align-items: center;
 }
 
-
-.spinner-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
-}
-
 .text-center {
     text-align: center;
 }
@@ -25,6 +20,13 @@
 table {
     width: 100%;
     margin-bottom: 3px;
+}
+
+.check-out-btn{
+padding: 4px 10px;
+}
+.totalItemCount{
+    display: inline-block;
 }
 
 @media screen and (max-width:500px) {

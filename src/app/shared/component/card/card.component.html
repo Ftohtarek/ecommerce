@@ -1,26 +1,23 @@
 <!-- place holder -->
 
-<mat-card>
-    <div cardImage>
-        <img [src]="product.imageUrl" (load)="isLoaded.emit(true)" loading="lazy">
-        <!-- <img [src]="" (load)="isLoaded.emit(true)" loading="lazy"> -->
+<mat-card [class.active-skeleton]="product?.skeleton">
+    <div cardImage class="skeleton skeleton-img">
+        <img *ngIf="!product?.skeleton" [src]="product?.imageUrl" (load)="isLoaded.emit(true)" loading="lazy">
     </div>
     <mat-card-content>
-        <mat-card-title>{{product.title}}</mat-card-title>
-        <mat-card-subtitle>{{product.price |currency}}</mat-card-subtitle>
+        <mat-card-title class="skeleton skeleton-text">{{product?.title}}</mat-card-title>
+        <mat-card-subtitle class="skeleton skeleton-text__body">{{product?.price |currency}}</mat-card-subtitle>
     </mat-card-content>
 
-    <mat-card-actions *ngIf="showAction">
+    <mat-card-actions *ngIf="showAction" class="skeleton skeleton-footer" [class.mdc-card__actions]="!product?.skeleton">
 
-        <button *ngIf="!cartModel.getQuantity(product)" addToCartBtn mat-raised-button color="primary"
-            (click)="addToCart()">
+        <button *ngIf="!product?.skeleton && !cartModel.getQuantity(product)  " addToCartBtn mat-raised-button
+            color="primary" (click)="addToCart()">
             add to cart
         </button>
 
-        <product-quantity *ngIf="cartModel.getQuantity(product)" [quantity]="cartModel.getQuantity(product)"
-            [product]="product"></product-quantity>
-
-
+        <product-quantity *ngIf="!product?.skeleton && cartModel.getQuantity(product)"
+            [quantity]="cartModel.getQuantity(product)" [product]="product"></product-quantity>
 
     </mat-card-actions>
 </mat-card>

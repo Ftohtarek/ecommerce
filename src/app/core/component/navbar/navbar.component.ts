@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatMenu } from '@angular/material/menu';
+import { ActiveUser } from 'shared/models/active-user';
 import { AuthService } from 'shared/service/auth.service';
 import { CartService } from 'shared/service/cart.service';
 import { UsersService } from 'shared/service/users.service';
@@ -10,11 +12,18 @@ import { UsersService } from 'shared/service/users.service';
 })
 export class NavbarComponent {
   toggleMenuIcon: boolean = false
+  profileIsLoaded = false;
 
-  cartModel$ = this.cart.getCartObject
+  isDataFetch: boolean = false;
+  totalItemCount?: any;
+  activeUser?: ActiveUser;
 
   constructor(public auth: AuthService, public user: UsersService, private cart: CartService) {
-
+    cart.getCartObject.subscribe(cart => this.totalItemCount = cart.totalItemCount)
+    this.user.ActiveUser$.subscribe(user => {
+      this.activeUser = user
+      this.isDataFetch = this.activeUser == null ? true : false
+    })
   }
 
 

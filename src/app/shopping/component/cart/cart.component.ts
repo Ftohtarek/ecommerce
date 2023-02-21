@@ -6,6 +6,7 @@ import { CartModel } from 'shared/models/cart.model';
 import { CartService } from 'shared/service/cart.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { ConfirmPopupComponent } from 'shared/component/confirm-popup/confirm-popup.component';
+import { SkeletonMockData } from 'shared/service/skeleton.data';
 
 export interface DialogData {
   animal: string;
@@ -23,19 +24,21 @@ export class CartComponent implements OnDestroy {
   displayedColumns = ['productName', 'price', 'quantity', 'totalPrice']
   displayedFooters = ['productName', 'price', 'quantity', 'totalPrice']
 
-  dataSource: MatTableDataSource<any> = <any>[]
+  dataSource: MatTableDataSource<any> = new MatTableDataSource(this.skeletonMock.setNoOfSkeleton(5))
   subscription?: Subscription;
   loading: boolean = true;
-  darkMode: boolean = false
+
   @ViewChild('paginator') paginator?: MatPaginator
-  constructor(public cartService: CartService, public dialog: Dialog) {
-    this.subscription =
-      cartService.getCartObject.subscribe(cart => {
-        this.cartModel = cart
-        this.dataSource = new MatTableDataSource(cart.items);
-        this.dataSource.paginator = <MatPaginator>this.paginator
-        this.loading = false;
-      })
+  constructor(public cartService: CartService, public dialog: Dialog, private skeletonMock: SkeletonMockData) {
+    this.skeletonMock.waiting(() => {
+      this.subscription =
+        cartService.getCartObject.subscribe(cart => {
+          this.cartModel = cart
+          this.dataSource.data = cart.items;
+          this.dataSource.paginator = <MatPaginator>this.paginator
+          this.loading = false;
+        })
+    })
   }
 
   openDialog(element: string) {

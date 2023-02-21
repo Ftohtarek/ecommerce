@@ -1,8 +1,9 @@
+@import '../../../../styles.scss';
+
 mat-card {
     width: 99%;
     height: 99%;
     word-wrap: break-word;
-    margin-bottom: 2px;
     border-radius: 5px;
     overflow: hidden;
 
@@ -30,9 +31,11 @@ mat-card {
         height: 30%;
     }
 
-    mat-card-actions {
+    .mdc-card__actions{
         height: 10%;
+        width: 100%;
         padding: 0;
+
 
         button[addToCartBtn] {
             width: 100% !important;

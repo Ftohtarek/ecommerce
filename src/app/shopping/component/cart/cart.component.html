@@ -1,23 +1,28 @@
 <h1>Shopping Cart</h1>
-<p>
-    you have <strong>{{cartModel.totalItemCount}}</strong> items in your shopping cart.
+<p [class.active-skeleton]="!cartModel.totalItemCount">
+    you have <strong class="skeleton skeleton-min-item totalItemCount">{{cartModel.totalItemCount}}</strong> items in
+    your shopping
+    cart.
     <button (click)="openDialog('All item')" mat-button color="warn">clear</button>
 </p>
-<div class="spinner-container" *ngIf="loading">
-    <mat-spinner></mat-spinner>
-</div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z1"
+    [class.active-skeleton]="dataSource.data[0].skeleton">
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-
     <!-- Title Column -->
     <ng-container matColumnDef="productName">
         <th bd-l mat-header-cell *matHeaderCellDef> Product </th>
         <td bd-l mat-cell *matCellDef="let item">
             <div class="title-image">
-                {{item.product.title}}
-                <img [style.backgroundImage]="'url('+ item.product.imageUrl + ')'" class="image-thumbail">
+                <ng-container *ngIf="item.skeleton">
+                    <div class="skeleton skeleton-cell-text"> </div>
+                    <div class="skeleton skeleton-img-logo"> </div>
+                </ng-container>
+                <ng-container *ngIf="!item.skeleton">
+                    {{item?.product.title}}
+                    <img [style.backgroundImage]="'url('+ item?.product.imageUrl + ')'" class="image-thumbail">
+                </ng-container>
             </div>
         </td>
         <td mat-footer-cell *matFooterCellDef> </td>
@@ -27,7 +32,12 @@
     <ng-container matColumnDef="quantity">
         <th bd-l mat-header-cell *matHeaderCellDef class="text-center"> Quantity</th>
         <td bd-l mat-cell *matCellDef="let item">
-            <product-quantity [product]="item.product" [quantity]="item.quantity"></product-quantity>
+            <ng-container *ngIf="item.skeleton">
+                <div class="skeleton skeleton-text"> </div>
+            </ng-container>
+            <ng-container *ngIf="!item.skeleton">
+                <product-quantity [product]="item?.product" [quantity]="item?.quantity"></product-quantity>
+            </ng-container>
         </td>
         <td mat-footer-cell *matFooterCellDef> </td>
     </ng-container>
@@ -35,16 +45,36 @@
     <!-- price Column -->
     <ng-container matColumnDef="price">
         <th bd-l mat-header-cell *matHeaderCellDef> price</th>
-        <td bd-l mat-cell *matCellDef="let item"> {{item.product.price |currency}} </td>
+        <td bd-l mat-cell *matCellDef="let item" [ngClass]="item.skeleton?'active-skeleton':''">
+            <ng-container *ngIf="item.skeleton">
+                <div class="skeleton skeleton-text"> </div>
+            </ng-container>
+            <ng-container *ngIf="!item.skeleton">
+                {{item?.product.price |currency}}
+            </ng-container>
+        </td>
         <td mat-footer-cell *matFooterCellDef> </td>
     </ng-container>
 
-    <!-- Total Price Column -->
+    <!-- TotalPrice Column -->
     <ng-container matColumnDef="totalPrice">
         <th bd-l mat-header-cell *matHeaderCellDef> TotalPrice</th>
-        <td bd-l mat-cell *matCellDef="let item">{{item.countItemPrice | currency}}
+        <td bd-l mat-cell *matCellDef="let item">
+            <ng-container *ngIf="item.skeleton">
+                <div class="skeleton skeleton-text"> </div>
+            </ng-container>
+            <ng-container *ngIf="!item.skeleton">
+                {{item?.countItemPrice | currency}}
+            </ng-container>
         </td>
-        <td mat-footer-cell *matFooterCellDef><strong> {{cartModel.totalCartPrice | currency}} </strong></td>
+        <td mat-footer-cell *matFooterCellDef>
+            <ng-container *ngIf="dataSource.data[0].skeleton">
+                <div class="skeleton skeleton-cell-text"> </div>
+            </ng-container>
+            <ng-container *ngIf="!dataSource.data[0].skeleton">
+                <strong> {{cartModel.totalCartPrice | currency}} </strong>
+            </ng-container>
+        </td>
     </ng-container>
 
     <!-- display col depond on display Columns -->
@@ -53,7 +83,9 @@
     <tr mat-footer-row *matFooterRowDef="displayedFooters"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;">
     </tr>
+
 </table>
 <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
 
-<a routerLink="/check-out" mat-raised-button *ngIf="cartModel.totalItemCount!=0" color="primary">Check out</a>
+<a class="check-out-btn" routerLink="/check-out" mat-raised-button *ngIf="cartModel.totalItemCount!=0"
+    color="primary">Check out</a>

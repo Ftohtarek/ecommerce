@@ -7,37 +7,59 @@
                 Home
             </a>
             <!-- cart link -->
-            <a mat-button routerLinkActive="activeLink" routerLink="cart">
-                <mat-icon >
+            <a mat-button routerLinkActive="activeLink" routerLink="cart" [class.active-skeleton]="!totalItemCount">
+                <mat-icon>
                     shopping_cart
                 </mat-icon>
-                <span total-Quantity *ngIf="cartModel$ | async as cartModel">{{cartModel.totalItemCount}}</span>
+                <div class="skeleton skeleton-min-item"></div>
+                <ng-container *ngIf="totalItemCount">
+                    <span total-item>{{totalItemCount}}</span>
+                </ng-container>
             </a>
-
         </div>
         <!-- right hande side -->
-        <div right-side>
+        <div right-side [class.active-skeleton]="!activeUser">
             <!-- profile menu -->
-            <button profile mat-button *ngIf="user.ActiveUser as user ;else annomusUser" [matMenuTriggerFor]="menu"
-                (menuClosed)="!toggleMenuIcon" (menuOpened)="!toggleMenuIcon">
-                <img *ngIf="user.photoURL" [src]="user.photoURL">
-                <img *ngIf="!user.photoURL" src="../../../assets/index.png">
-                {{user?.userName}}
-            </button>
+            <div [class.clear]="isDataFetch" profile [matMenuTriggerFor]="menu" (menuClosed)="!toggleMenuIcon"
+                (menuOpened)="!toggleMenuIcon">
+
+                <!-- profile image -->
+                <div *ngIf="!isDataFetch" class="skeleton skeleton-img-logo">
+                    <img *ngIf="activeUser" [src]="activeUser.photoURL" loading="eager" (load)="profileIsLoaded=true">
+                </div>
+                
+                <!-- name and arrow -->
+                <div *ngIf="!isDataFetch" class="skeleton skeleton-text">
+                    <div class="profile-name" *ngIf="activeUser">
+                        <span> {{activeUser.userName | maxLength:10 }}</span>
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <!-- profile menu -->
+
             <mat-menu #menu="matMenu" yPosition="below">
+                <div class="matBtn">
+                    <span class="img-logo">
+                        <img [src]="activeUser?.photoURL">
+                    </span>
+                    <h4>{{activeUser?.userName}}</h4>
+                </div>
+
                 <button mat-menu-item routerLinkActive="activeLink" routerLink="orders">My Orders</button>
-                <button *ngIf="user.ActiveUser?.isAdmin" mat-menu-item routerLinkActive="activeLink"
+                <button *ngIf="activeUser?.isAdmin" mat-menu-item routerLinkActive="activeLink"
                     routerLink="admin/orders">Manage Orders</button>
-                <button *ngIf="user.ActiveUser?.isAdmin" mat-menu-item routerLinkActive="activeLink"
+                <button *ngIf="activeUser?.isAdmin" mat-menu-item routerLinkActive="activeLink"
                     routerLink="admin/products">Manage Products</button>
                 <button mat-menu-item routerLinkActive="active" routerLink="login" (click)="auth.logout()">Log
                     Out</button>
             </mat-menu>
 
-            <ng-template #annomusUser>
+            <!-- memeber ship option -->
+            <ng-container *ngIf="isDataFetch">
                 <button mat-button routerLink="login">logIn</button>
                 <a mat-button routerLinkActive="linkActive" routerLink="signup">Regisiter </a>
-            </ng-template>
+            </ng-container>
 
         </div>
     </mat-toolbar>

@@ -6,19 +6,24 @@
     <mat-drawer-container>
         <!-- side navbar -->
 
-        <mat-drawer #drawer [opened]="true" mode="side" class="mat-elevation-z4 ">
-            <h4>Categories</h4>
+        <mat-drawer #drawer [opened]="true" mode="side" class="mat-elevation-z4 "
+            [class.active-skeleton]="categories[0].skeleton">
+            <h4 class="skeleton skeleton-text__categorey">Categories</h4>
             <mat-divider color="default"></mat-divider>
             <!-- category menu -->
             <div class="menu">
                 <!-- category item -->
                 <ng-container *ngIf="categories">
-                    <div class="menu-item ">
-                        <a mat-button [class.activeLink]="!category" routerLink="/">All
-                            Categories</a>
+                    <div class="menu-item">
+                        <a mat-button [class.activeLink]="!Activecategory" class="skeleton skeleton-text__categorey"
+                            routerLink="/">
+                            All Categories
+                        </a>
                     </div>
+
                     <div class="menu-item" *ngFor="let category of categories">
-                        <a mat-button routerLinkActive="activeLink" routerLink="/"
+                        <a class="skeleton skeleton-text__categorey" mat-button
+                            routerLinkActive="category.skeleton?'': 'activeLink'" routerLink="/"
                             [queryParams]="{'category':category.key}"> {{category.name}} </a>
                     </div>
                 </ng-container>
@@ -30,16 +35,7 @@
         <mat-drawer-content>
             <!-- page content -->
             <div class="content">
-                <mat-grid-list [cols]="cols" rowHeight="50vh" gutterSize="10px">
-                    <!-- place holder for data until data load -->
-                    <ng-container *ngIf="loading">
-                        <mat-grid-tile *ngFor="let index of [].constructor(8)">
-                            <card-placeholder></card-placeholder>
-                        </mat-grid-tile>
-                    </ng-container>
-
-                    <!-- display actual data -->
-
+                <mat-grid-list [cols]="cols" rowHeight="40vh" gutterSize="10px">
                     <mat-grid-tile *ngFor="let product of filteredProducts ">
                         <card [product]="product" [cartModel]="cartShopping" (load)="isLoaded($event)"></card>
                     </mat-grid-tile>

@@ -1,13 +1,15 @@
 @import '../../../../styles.scss';
 
 mat-drawer-container {
-    margin-top: 7px;
     background-color: transparent;
+    min-height: 500px;
+    width: auto;
 
     mat-drawer {
         margin: 16px;
+        margin-top: 7px;
         width: 200px;
-        min-height: 40vh;
+        height: 400px;
         max-height: calc(100vh - 150px);
         border-right: none;
         border-radius: 10px;
@@ -15,10 +17,11 @@ mat-drawer-container {
 
         .menu {
             font-size: 1rem;
+            margin-top: 5px;
 
             .menu-item {
                 width: inherit;
-                padding:2px;
+                padding: 2px;
 
                 a {
                     padding: 0px 8px;
@@ -38,18 +41,21 @@ mat-drawer-container {
 mat-drawer-content {
     .content {
         margin: 16px;
+        margin-top: 7px;
         margin-left: 32px;
         border-radius: 5px;
     }
 
     card {
+        padding: 2px;
         width: 100%;
-        height: 50vh;
+        height: 100%;
     }
 
     card-placeholder {
         width: 100%;
         height: 50vh;
     }
+
 
 }

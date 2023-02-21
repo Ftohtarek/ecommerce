@@ -5,6 +5,7 @@ import { SharedModule } from 'shared/shared.module';
 import { HomeComponent } from './component/home/home.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
+import { MaxLengthPipe } from './pipe/max-length.pipe';
 
 
 
@@ -13,6 +14,7 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
     NavbarComponent,
     HomeComponent,
     NotFoundComponent,
+    MaxLengthPipe,
 
   ],
   imports: [

@@ -8,6 +8,7 @@ import { Product } from 'shared/models/porduct.interface';
 import { CartService } from 'shared/service/cart.service';
 import { CdkLayoutService } from 'shared/service/cdk-layout.service';
 import { ProductService } from 'shared/service/product.service';
+import { SkeletonMockData } from 'shared/service/skeleton.data';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,11 @@ import { ProductService } from 'shared/service/product.service';
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   loading: boolean = true;
-  products: Product[] = [];
-  filteredProducts?: Product[];
+  products: Product[] = <Product[]>[];
+  filteredProducts?: Product[] = this.skeletonMock.setNoOfSkeleton(10);
 
-  categories?: any[];
-  category?: string;
+  categories: any[] = this.skeletonMock.setNoOfSkeleton(5);
+  Activecategory?: string;
 
   @ViewChild(MatDrawer) sideNav!: MatSidenav
   matGrid?: MatGridList;
@@ -33,10 +34,11 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     private productService: ProductService,
     private router: ActivatedRoute,
     private layout: CdkLayoutService,
-    private cartSevice: CartService
+    private cartSevice: CartService,
+    private skeletonMock: SkeletonMockData,
   ) {
     const CategoriesSubscription =
-      productService.getCategories.subscribe(categories => this.categories = categories)
+      productService.getCategories.subscribe(categories => this.skeletonMock.waiting(() => this.categories = categories))
 
     const productsAndRoutingAndFilterSubscription =
       this.productService.getAllProducts.pipe(switchMap(
@@ -46,19 +48,17 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         }))
         .subscribe(
           param => {
-            this.category = <string>param.get('category')
-            this.filteredProducts = this.category ? this.products.filter(product => product.category == this.category) : this.products
+            this.Activecategory = <string>param.get('category')
+            this.skeletonMock.waiting(() => {
+              this.filteredProducts = this.Activecategory ? this.products.filter(product => product.category == this.Activecategory) : this.products
+            })
           })
 
     const CartSubscription =
       cartSevice.getCartObject.subscribe(cart => this.cartShopping = cart)
 
-    this.subscription?.push(...[CartSubscription, productsAndRoutingAndFilterSubscription, CategoriesSubscription])
+    this.subscription?.push(CartSubscription, productsAndRoutingAndFilterSubscription,CategoriesSubscription)
   }
-  Test() {
-
-  }
-
   isLoaded(isLoad: boolean) {
     this.loading = !isLoad;
   }

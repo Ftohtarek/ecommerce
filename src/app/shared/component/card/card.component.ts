@@ -9,7 +9,7 @@ import { CartService } from 'shared/service/cart.service';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
-  @Input('product') product: Product = <Product>{}
+  @Input('product') product: any;
   @Input('showAction') showAction: boolean = true
   @Output('load') isLoaded = new EventEmitter()
   @Input('cartModel') cartModel: CartModel = <CartModel>{}
@@ -18,7 +18,6 @@ export class CardComponent {
 
   addToCart = () =>
     this.cartService.addToCart(<Product>this.product)
-
 
 
 } 

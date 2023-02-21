@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { Order } from 'shared/models/orders';
+import { SkeletonMockData } from 'shared/service/skeleton.data';
 
 @Component({
   selector: 'order-table',
@@ -22,21 +23,27 @@ export class OrderTableComponent implements OnInit, OnDestroy {
   @Input('orderList') orderList: Observable<Order[]> = new Observable<any>
   @Input('cansalOrder') cansalOrder: boolean = false
   @Output('OnDeleted') OnDeleted = new EventEmitter()
-  dataSource: MatTableDataSource<any> = <any>[]
+
+  dataSource: MatTableDataSource<any> = new MatTableDataSource(this.skeleton.setNoOfSkeleton(5))
   columnsToDisplay = ['index', 'name', 'address', 'date', 'totalPrice', 'expand']
   @ViewChild('paginator') paginator?: MatPaginator
   expandedElement: Order = <Order>{}
 
   orderSubscription!: Subscription
-  constructor() { }
+
+  constructor(private skeleton: SkeletonMockData) {
+
+  }
 
   ngOnInit(): void {
-    this.orderSubscription = this.orderList.subscribe(orders => {
-      this.dataSource = new MatTableDataSource(orders);
-
-      this.dataSource.paginator = <MatPaginator>this.paginator
-    })
-    this.cansalOrder ? this.columnsToDisplay.push('cansal') : null;
+    this.skeleton.waiting(
+      () => {
+        this.orderSubscription = this.orderList.subscribe(orders => {
+          this.dataSource.data = orders;
+          this.dataSource.paginator = <MatPaginator>this.paginator
+        })
+        this.cansalOrder ? this.columnsToDisplay.push('cansal') : null;
+      })
   }
 
   cansal(key: string) {

@@ -9,7 +9,7 @@ import { CartService } from 'shared/service/cart.service';
 })
 export class QuantityComponent {
   @Input('quantity') quantity: number =0
-  @Input('product') product: Product = <Product>{}
+  @Input('product') product?: Product 
 
   constructor(private cartService: CartService) { }
 

@@ -19,7 +19,9 @@ import { AuthGaurd } from './service/auth-gaurd.service';
 import { AuthService } from './service/auth.service';
 import { CartService } from './service/cart.service';
 import { ProductService } from './service/product.service';
+import { SkeletonMockData } from './service/skeleton.data';
 import { UsersService } from './service/users.service';
+
 
 
 
@@ -41,7 +43,6 @@ import { UsersService } from './service/users.service';
     CustomFormsModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-
   ],
   exports: [
     AutoCompleteFieldComponent,
@@ -56,8 +57,6 @@ import { UsersService } from './service/users.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     CustomFormsModule,
-
-
   ],
 
   providers: [
@@ -66,8 +65,8 @@ import { UsersService } from './service/users.service';
     UsersService,
     ProductService,
     CartService,
-    Countries
-  ],
+    Countries,
+    SkeletonMockData],
 
 })
 
