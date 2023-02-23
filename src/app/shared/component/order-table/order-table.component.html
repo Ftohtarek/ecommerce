@@ -1,5 +1,5 @@
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z1"
-    [class.active-skeleton]="dataSource.data[0].skeleton">
+    [class.active-skeleton]="dataSource.data[0]?.skeleton">
 
     <!-- index -->
     <ng-container matColumnDef="index">
@@ -17,7 +17,7 @@
                 <div class="skeleton skeleton-cell-text"></div>
             </ng-container>
             <ng-container *ngIf="!element.skeleton">
-                {{element.destination.name}}
+                {{element?.destination.name}}
             </ng-container>
         </td>
     </ng-container>
@@ -31,7 +31,7 @@
             </ng-container>
 
             <ng-container *ngIf="!element.skeleton">
-                {{element.destination.address}} - {{element.destination.city}} - {{element.destination.country}}
+                {{element?.destination.address}} - {{element?.destination.city}} - {{element?.destination.country}}
             </ng-container>
         </td>
     </ng-container>
@@ -45,7 +45,7 @@
             </ng-container>
 
             <ng-container *ngIf="!element.skeleton">
-                {{element.bookDate |date}}
+                {{element?.bookDate |date}}
             </ng-container>
         </td>
     </ng-container>
@@ -59,7 +59,7 @@
             </ng-container>
 
             <ng-container *ngIf="!element.skeleton">
-                {{element.totalPrice |currency}}
+                {{element?.totalPrice |currency}}
             </ng-container>
         </td>
     </ng-container>
@@ -92,7 +92,7 @@
             </ng-container>
 
             <ng-container *ngIf="!element.skeleton">
-                <button mat-icon-button (click)="cansal(element.key)">
+                <button mat-icon-button (click)="cansal(element?.key)">
                     <mat-icon color="warn">delete</mat-icon>
                 </button>
             </ng-container>
@@ -106,10 +106,10 @@
         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
             <ng-container *ngIf="!element.skeleton">
                 <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                    <div class="expand-content">
-                        <ng-container *ngFor="let book of element.booking">
+                    <div class="expand-content"> -->
+                        <ng-container *ngFor="let book of element?.booking">
                             <div class="box">
-                                {{book.quantity}} x {{book.product.title}} x {{book.totalPrice | currency}}
+                                {{book?.quantity}} x {{book.product?.title}} x {{book?.totalPrice | currency}}
                             </div>
                         </ng-container>
                     </div>

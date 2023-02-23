@@ -41,7 +41,7 @@ using router **authGrad** for auth user and **authAdminGaurd** for admin .
 ## demo
 Admin account  demo.
 
-email:```ftohtarek@gmail.com```
+email:```ftohtarek@mail.com```
 password:```ftoh12345```.
 
 [Ecommerce](https://angular15-ecommerce-app.web.app/)

@@ -46,9 +46,9 @@ export class OrderTableComponent implements OnDestroy, OnChanges {
           if (Boolean(orders) != false) {
             this.dataSource.data = orders;
             this.dataSource.paginator = <MatPaginator>this.paginator
+            this.cansalOrder ? this.columnsToDisplay.push('cansal') : null;
           }
         })
-        this.cansalOrder ? this.columnsToDisplay.push('cansal') : null;
       })
   }
 
