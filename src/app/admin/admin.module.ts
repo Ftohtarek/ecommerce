@@ -15,7 +15,6 @@ import { AdminProductComponent } from './component/admin-product/admin-product.c
     AdminOrdersComponent,
   ],
   imports: [
-    CommonModule,
     AdminRoutingModule,
     SharedModule
   ]

@@ -44,7 +44,7 @@ export class CheckOutComponent implements OnDestroy, OnInit {
   }
 
   get orderValue() {
-    return new Order(<string>this.user.ActiveUser.uid, <Destination>this.shippingForm.value, this.cart)
+    return new Order(<string>this.user.ActiveUser?.uid, <Destination>this.shippingForm.value, this.cart)
   }
 
   ngOnDestroy(): void {

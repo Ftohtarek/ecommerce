@@ -27,6 +27,7 @@ export class CartComponent implements OnDestroy {
   dataSource: MatTableDataSource<any> = new MatTableDataSource(this.skeletonMock.setNoOfSkeleton(5))
   subscription?: Subscription;
   loading: boolean = true;
+  // this.totalItemCount = cart.totalItemCount == 0 ? '0' : cart.totalItemCount
 
   @ViewChild('paginator') paginator?: MatPaginator
   constructor(public cartService: CartService, public dialog: Dialog, private skeletonMock: SkeletonMockData) {

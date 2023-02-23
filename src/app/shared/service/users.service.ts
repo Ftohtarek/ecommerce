@@ -8,7 +8,7 @@ import { ActiveUser } from 'shared/models/active-user';
 })
 
 export class UsersService {
-  ActiveUser!: ActiveUser
+  ActiveUser?: ActiveUser
   ActiveUser$: Observable<any> = of()
 
   constructor(private database: AngularFireDatabase) { }

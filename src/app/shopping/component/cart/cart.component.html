@@ -5,9 +5,8 @@
     cart.
     <button (click)="openDialog('All item')" mat-button color="warn">clear</button>
 </p>
-
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z1"
-    [class.active-skeleton]="dataSource.data[0].skeleton">
+    [class.active-skeleton]="dataSource.data[0]?.skeleton">
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
     <!-- Title Column -->
@@ -59,6 +58,7 @@
     <!-- TotalPrice Column -->
     <ng-container matColumnDef="totalPrice">
         <th bd-l mat-header-cell *matHeaderCellDef> TotalPrice</th>
+        
         <td bd-l mat-cell *matCellDef="let item">
             <ng-container *ngIf="item.skeleton">
                 <div class="skeleton skeleton-text"> </div>
@@ -67,11 +67,12 @@
                 {{item?.countItemPrice | currency}}
             </ng-container>
         </td>
+        
         <td mat-footer-cell *matFooterCellDef>
-            <ng-container *ngIf="dataSource.data[0].skeleton">
+            <ng-container *ngIf="dataSource.data[0]?.skeleton">
                 <div class="skeleton skeleton-cell-text"> </div>
             </ng-container>
-            <ng-container *ngIf="!dataSource.data[0].skeleton">
+            <ng-container *ngIf="!dataSource.data[0]?.skeleton">
                 <strong> {{cartModel.totalCartPrice | currency}} </strong>
             </ng-container>
         </td>

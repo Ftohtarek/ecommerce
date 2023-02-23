@@ -1,10 +1,10 @@
 import { CartItem } from "./cart-item.model";
 
 export class CartModel {
-    
+
     items: CartItem[] = []
 
-    constructor( private itemsMap: { [key: string]: CartItem }) {
+    constructor(private itemsMap: { [key: string]: CartItem }) {
         for (const key in itemsMap) {
             let item = itemsMap[key]
             this.items.push(new CartItem(item.product, item.quantity))
@@ -25,11 +25,11 @@ export class CartModel {
         return 0
     }
 
-    private Counter(property: any): number {
+    private Counter(property: any): any {
         let count: number = 0
         this.items.forEach((item: any) => count += item[property])
 
-        return count;
+        return count == 0 ? '0' : count
     }
 
 

@@ -7,7 +7,8 @@
                 Home
             </a>
             <!-- cart link -->
-            <a mat-button routerLinkActive="activeLink" routerLink="shopping/cart" [class.active-skeleton]="!totalItemCount">
+            <a mat-button routerLinkActive="activeLink" routerLink="shopping/cart"
+                [class.active-skeleton]="!totalItemCount">
                 <mat-icon>
                     shopping_cart
                 </mat-icon>
@@ -27,7 +28,7 @@
                 <div *ngIf="!isDataFetch" class="skeleton skeleton-img-logo">
                     <img *ngIf="activeUser" [src]="activeUser.photoURL" loading="eager" (load)="profileIsLoaded=true">
                 </div>
-                
+
                 <!-- name and arrow -->
                 <div *ngIf="!isDataFetch" class="skeleton skeleton-text">
                     <div class="profile-name" *ngIf="activeUser">
