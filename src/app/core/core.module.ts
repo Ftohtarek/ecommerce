@@ -1,28 +1,31 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { SharedModule } from 'shared/shared.module';
+import { CoreRoutingModule } from './core-routing.module';
 
 import { HomeComponent } from './component/home/home.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { MaxLengthPipe } from './pipe/max-length.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponent,
     HomeComponent,
     NotFoundComponent,
-    MaxLengthPipe,
-
+    NavbarComponent,
+    MaxLengthPipe
   ],
   imports: [
-    CommonModule,
+    CoreRoutingModule,
+    BrowserAnimationsModule,
     SharedModule,
   ],
-  exports: [
+  exports:[
     NavbarComponent
   ]
+
 })
 export class CoreModule { }

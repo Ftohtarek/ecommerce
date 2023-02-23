@@ -7,7 +7,7 @@
                 Home
             </a>
             <!-- cart link -->
-            <a mat-button routerLinkActive="activeLink" routerLink="cart" [class.active-skeleton]="!totalItemCount">
+            <a mat-button routerLinkActive="activeLink" routerLink="shopping/cart" [class.active-skeleton]="!totalItemCount">
                 <mat-icon>
                     shopping_cart
                 </mat-icon>
@@ -46,19 +46,19 @@
                     <h4>{{activeUser?.userName}}</h4>
                 </div>
 
-                <button mat-menu-item routerLinkActive="activeLink" routerLink="orders">My Orders</button>
+                <button mat-menu-item routerLinkActive="activeLink" routerLink="shopping/orders">My Orders</button>
                 <button *ngIf="activeUser?.isAdmin" mat-menu-item routerLinkActive="activeLink"
                     routerLink="admin/orders">Manage Orders</button>
                 <button *ngIf="activeUser?.isAdmin" mat-menu-item routerLinkActive="activeLink"
                     routerLink="admin/products">Manage Products</button>
-                <button mat-menu-item routerLinkActive="active" routerLink="login" (click)="auth.logout()">Log
+                <button mat-menu-item routerLinkActive="active" routerLink="memeber/login" (click)="auth.logout()">Log
                     Out</button>
             </mat-menu>
 
             <!-- memeber ship option -->
             <ng-container *ngIf="isDataFetch">
-                <button mat-button routerLink="login">logIn</button>
-                <a mat-button routerLinkActive="linkActive" routerLink="signup">Regisiter </a>
+                <button mat-button routerLink="memeber/login">logIn</button>
+                <a mat-button routerLinkActive="linkActive" routerLink="memeber/signup">Regisiter </a>
             </ng-container>
 
         </div>

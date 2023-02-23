@@ -12,7 +12,7 @@ import { UsersService } from 'shared/service/users.service';
 
 export class OrdersComponent {
   orderList$: Observable<any>
-
+  
   constructor(public user: UsersService, public order: OrdersService) {
     this.orderList$ = this.order.getUserOrder(<string>this.user.ActiveUser.uid)
   }

@@ -16,7 +16,7 @@ export class AuthGaurd implements CanActivate {
       map(activeUser => {
         if (activeUser)
           return true
-        this.route.navigate(['/login'], { queryParams: { returnUrl: state.url } })
+        this.route.navigate(['/memeber/login'], { queryParams: { returnUrl: state.url } })
         return false
       })
     )

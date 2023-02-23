@@ -57,7 +57,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     const CartSubscription =
       cartSevice.getCartObject.subscribe(cart => this.cartShopping = cart)
 
-    this.subscription?.push(CartSubscription, productsAndRoutingAndFilterSubscription,CategoriesSubscription)
+    this.subscription?.push(CartSubscription, productsAndRoutingAndFilterSubscription, CategoriesSubscription)
   }
   isLoaded(isLoad: boolean) {
     this.loading = !isLoad;

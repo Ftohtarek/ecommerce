@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrdersService } from 'shared/service/orders.service';
-import { UsersService } from 'shared/service/users.service';
 
 @Component({
   selector: 'app-admin-orders',
@@ -11,7 +10,7 @@ import { UsersService } from 'shared/service/users.service';
 export class AdminOrdersComponent {
   orderList$: Observable<any>
 
-  constructor(public user: UsersService, public order: OrdersService) {
+  constructor( public order: OrdersService) {
     this.orderList$ = this.order.getAllOrders
   }
   

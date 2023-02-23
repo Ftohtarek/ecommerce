@@ -87,5 +87,5 @@
 </table>
 <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
 
-<a class="check-out-btn" routerLink="/check-out" mat-raised-button *ngIf="cartModel.totalItemCount!=0"
+<a class="check-out-btn" routerLink="/shopping/check-out" mat-raised-button *ngIf="cartModel.totalItemCount!=0"
     color="primary">Check out</a>
